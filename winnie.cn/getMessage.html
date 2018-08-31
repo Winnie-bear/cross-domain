@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>getMessage</title>
+</head>
+<body>
+    <h2>我是接受消息的页面</h2>
+    <script>
+        document.domain="winnie.cn";
+       //通过message事件监听并接受消息
+       let handleMessage=function(event){
+           let data=event.data;
+           let origin=event.origin;
+           let source=event.source;
+           if(origin=="http://www.winnie.cn"){
+               alert(data);
+               alert(source);
+           }  
+       } 
+       if(typeof window.addEventListener != 'undefined'){
+           window.addEventListener("message",handleMessage,false);
+       }
+       else if(typeof window.attachEvent != 'undefined'){
+           //IE
+           window.attachEvent("onmessage",handleMessage);
+       }
+    </script>
+</body>
+</html>

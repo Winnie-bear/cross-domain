@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>postMessage</title>
+</head>
+<body>
+    <iframe id="iframe" src="http://winnie.cn//getMessage.html" onload="fnLoad()" name="winnie"></iframe>
+    <script>
+      document.domain="winnie.cn";
+      function fnLoad(){
+          let ifr=document.getElementById("iframe");
+          let win=ifr.contentWindow;
+      /*     alert(win.name);
+          alert(win.self); */
+          let targetOrigin="http://winnie.cn";
+          let message="我是来自postMessage页面的消息";
+          win.postMessage(message,targetOrigin);
+      }
+    </script>
+</body>
+</html>

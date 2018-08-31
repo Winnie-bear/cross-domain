@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="btn">发送请求</button>
+    <div id="results"></div>
+    <script>
+        var btn2 = document.querySelector("#btn");
+        btn2.onclick = function(){
+            var client = createClient("http://localhost:3000/stream", function(data){
+                document.querySelector("#results").innerHTML += "Received:"+data+"<br>";
+            }, function(data){
+                document.querySelector("#results").innerHTML += "Done!";
+            });
+        }
+        function createClient(url, process, finished){
+            var xhr = new XMLHttpRequest(), received = 0;
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function(){
+                var result;
+                if(xhr.readyState == 3){
+                    result = xhr.responseText.slice(received);
+                    received += result.length;
+                    process(result);
+                } else if(xhr.readyState == 4) {
+                    finished(xhr.responseText);
+                }
+            }
+            xhr.send(null);
+            return xhr;
+        }
+    </script>
+</body>
+</html>

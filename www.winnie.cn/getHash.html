@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>localtion.hash 跨域</title>
+</head>
+<body>
+    <h1>我是请求hash页面数据的gethash页面</h1>
+</body>
+<script>
+       startRequest();  
+       function startRequest(){//创建获取数据的代理iframe
+          let iframe=document.createElement("iframe");
+          iframe.style.display="none";
+          iframe.src="http://winnie.cn/hash.html#paramdo";
+          document.body.appendChild(iframe);
+       }
+  
+       function checkHash(){
+           try{
+             let data=location.hash?location.hash.substring(1):"";
+             alert(data);
+           }catch(e){
+               //处理异常
+           }
+       }
+       setInterval(checkHash,2000);
+      </script>  
+</html>

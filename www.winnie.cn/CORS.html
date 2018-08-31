@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CORS 跨域</title>
+</head>
+<body>
+    <h2>用CORS实现跨域</h2>
+    <script>
+      //跨浏览器的CORS
+      function createCORSRequest(method,url){
+        var xhr=new XMLHttpRequest();//非IE6浏览器,IE8到IE10支持
+        if("withCredentials" in xhr){//IE10及更早的版本都不支持withCredentials属性
+            xhr.open(method,url,true);
+        }else if(typeof XDomainRequest !="undefined"){//IE8开始支持XDR类型
+           xhr=new XDomainRequest();
+           xhr.open(method,url);//只有两个参数 
+        }else{
+            xhr=null;
+        } 
+        return xhr;
+      }
+      //简单请求
+    /*   let request=createCORSRequest('GET',"http://winnie.cn/data.php",true); */
+     //非简单请求
+      let request=createCORSRequest('PUT', 'http://localhost:8888/', true);
+      request.withCredentials = true;
+      request.setRequestHeader('x-token', 'a');
+      if(request){//返回值不为空时
+         request.onload=function(){//代替onreadystatechange检测成功
+             alert(request.responseText);
+         }
+         request.send();
+      }
+    </script>
+</body>
+</html>

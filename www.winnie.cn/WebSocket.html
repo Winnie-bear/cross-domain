@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>socket</title>
+    <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+</head>
+<body>
+    <button id="btn">连接到服务器</button>
+    <div id="result"></div>
+    <script>
+        var btn=document.getElementById("btn");
+        btn.onclick=function () {
+            var socket = io.connect('http://localhost:8090');
+            socket.on('news', function (data) {
+                console.log(data);
+                socket.emit('my other event', { my: 'data' });
+            });
+        };
+    </script>
+</body>
+</html>

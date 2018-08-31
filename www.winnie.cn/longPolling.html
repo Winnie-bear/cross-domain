@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+     <button id="btn">发送请求</button>
+     <div id="result"></div>
+     <script>
+         var btn = document.querySelector("#btn"), counter = 1;
+         var poll = function() {
+             var xhr = new XMLHttpRequest();
+             xhr.open('GET', "http://localhost:3000/poll/"+counter, true);
+             xhr.onreadystatechange = function(){
+                 if(xhr.readyState == 4) {
+                     var res = document.querySelector("#result");
+                     res.innerHTML += xhr.responseText + "<br>";
+                     if(++counter <= 5){
+                         poll();
+                     } else {
+                         counter = 1;
+                     }
+                 }
+             };
+             xhr.send(null);
+         };
+         btn.onclick = function(){
+             document.querySelector("#result").innerHTML = "";
+             poll();
+         };
+     </script>
+</body>
+</html>

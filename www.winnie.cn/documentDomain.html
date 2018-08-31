@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p style="color:orange;font-size:24px;">我是需要访问iframe的页面</p>
+    <iframe id="iframe" src="http://winnie.cn/documentDomain.html" onload="test()" name="winnie.cn"></iframe>
+    <script>
+        /* document.domain="winnie.cn"; *///设置成主域
+        function test(){
+            var iframe = document.getElementById('iframe');
+            var win = iframe.contentWindow;
+            var doc = win.document;
+            var name= win.name;
+            alert(win);
+            alert(doc);
+            alert(name);         
+    }
+    </script>
+</body>
+</html>
