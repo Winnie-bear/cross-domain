@@ -15,11 +15,15 @@
         var source;
         btn.onclick=function () {
             source=new EventSource("http://localhost:8088/sse");
+            //参数是false，事件处理程序以冒泡模式触发
             source.addEventListener("open",function () {
                 result.innerHTML+="建立连接<br/>";
             },false);
+            source.addEventListener("error",function () {
+                result.innerHTML+="连接无法建立<br/>";
+            },false);
             source.addEventListener("connecttime",function (e) {
-                result.innerHTML+="连接已建立："+e.data+"<br/>";
+                result.innerHTML+="连接建立时间："+e.data+"<br/>";
             },false);
             source.addEventListener("message",function (e) {
                 result.innerHTML+="接受更新时间："+e.data+"<br/>";

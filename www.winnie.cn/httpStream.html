@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>httpStream</title>
 </head>
 <body>
     <button id="btn">发送请求</button>
@@ -17,12 +17,12 @@
             });
         }
         function createClient(url, process, finished){
-            var xhr = new XMLHttpRequest(), received = 0;
-            xhr.open('GET', url, true);
+            var xhr = new XMLHttpRequest(), received = 0;//received用于记录已经处理了多少个字符
+            xhr.open('GET', url, true);//true表示异步
             xhr.onreadystatechange = function(){
                 var result;
                 if(xhr.readyState == 3){
-                    result = xhr.responseText.slice(received);
+                    result = xhr.responseText.substring(received);
                     received += result.length;
                     process(result);
                 } else if(xhr.readyState == 4) {

@@ -7,14 +7,22 @@
 </head>
 <body>
     <button id="btn">连接到服务器</button>
-    <div id="result"></div>
     <script>
         var btn=document.getElementById("btn");
+       
         btn.onclick=function () {
             var socket = io.connect('http://localhost:8090');
-            socket.on('news', function (data) {
-                console.log(data);
-                socket.emit('my other event', { my: 'data' });
+            let interval = setTimeInterval(()=>{
+            socket.emit('random', Math.random());
+            }, 500);
+
+            socket.on('warn', count=>{
+             console.log('warning count : '+count);
+            });
+
+            socket.on('disconnect', ()=>{
+             console.log('disconnected!');
+             clearInterval(interval);
             });
         };
     </script>
